@@ -2,7 +2,7 @@ import numpy as np
 import scipy.special
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from datasets import Dataset
-from src.data.denoise_model import DenoiseDataset
+from src.models.denoise_model import DenoiseDataset
 
 def denoising(data_samples, tr, tokenizer, tag):
   biganswer = []

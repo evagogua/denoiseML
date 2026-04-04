@@ -7,7 +7,7 @@ from sklearn.metrics import (
     f1_score,
     classification_report
 )
-from src.data.denoise_model import DenoiseDataset
+from src.models.denoise_model import DenoiseDataset
 
 def plot_training_curves(trainer):
 
