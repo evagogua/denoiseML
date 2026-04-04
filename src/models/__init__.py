@@ -1,15 +1,15 @@
-from src.data.classifier_model import (
+from src.models.classifier_model import (
     ClassificationDataset,
     prepare_classification_dataset_from_json
 )
 
-from src.data.denoise_model import (
+from src.models.denoise_model import (
     DenoiseDataset,
     make_last_subtoken_mask,
     prepare_denoise_dataset_from_json
 )
 
-from src.data.trainer import (
+from src.models.trainer import (
     plot_training_curves,
     compute_metrics,
     final_report
