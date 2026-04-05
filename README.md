@@ -29,8 +29,9 @@
 }
 ```
 ### Размер и подвыборки
-В экспериментах использовались три варианта обучающих выборок:
+В экспериментах использовались 4 варианта обучающих выборок:
 1. `banking + credit_cards`
+2. `travel + work`
 2. `banking + credit_cards + travel + work` (`bctw`)
 3. `all` — полный набор доступных меток
 
@@ -46,7 +47,7 @@
 
 Обе модели дообучались как `AutoModelForTokenClassification` с двумя метками.
 
-### 2. MLM-filtering (Альтернативный подход)
+### 2. MLM-filtering 
 В качестве эксперимента был использован подход по мотивам [Karimi (2024)](https://ahkarimi.github.io/blog/2024/remove-noise-from-text/):
 1. каждый токен поочерёдно маскируется;
 2. masked language model оценивает вероятность исходного токена в данной позиции;
@@ -131,18 +132,18 @@ pip install -r requirements.txt
 
 ### 2. Запуск экспериментов
 
-Эксперименты разделены на три Jupyter Notebook, которые необходимо запускать последовательно.
+Эксперименты разделены на три Jupyter Notebook.
 
 #### Ноутбук 1: `dataset_builder.ipynb`
 
 Этот ноутбук отвечает за подготовку данных.
 
 **Действия:**
-1.  Клонирует репозиторий и устанавливает зависимости (если не сделано вручную).
+1.  Клонирует репозиторий и устанавливает зависимости.
 2.  Загружает и переводит датасет `clinc/oos-eval` с английского на русский.
 3.  Загружает датасет `Den4ikAI/russian_dialogues` для создания "шума".
 4.  Генерирует зашумленные версии предложений, вставляя случайные фразы из диалогов.
-5.  Создает файлы с данными для обучения (`noise_data_*.json`) и сохраняет их в директорию `data/`.
+5.  Создает файлы с данными для обучения (`noise_data_*.json`).
 
 #### Ноутбуки 2 и 3: `02_training_XLM_R.ipynb` и `03_traing_mBERT.ipynb`
 
@@ -154,7 +155,7 @@ pip install -r requirements.txt
 3.  Производит тонкую настройку (`fine-tuning`) модели для токенной классификации.
 4.  Сохраняет обученные модели.
 
-#### Ноутбук 4: 04_mlm_filtering.ipynb
+#### Ноутбук 4: `04_mlm_filtering.ipynb`
 Этот ноутбук реализует альтернативный подход к очистке текста — MLM-фильтрацию (по мотивам Karimi, 2024).
 
 **Действия**:
@@ -162,11 +163,11 @@ pip install -r requirements.txt
 1. Загружается предобученная MLM.
 2. На валидационной выборке подбирается оптимальный порог `threshold`, максимизирующий метрики качества очистки.
 3. Загружается зашумленный датасет (`noise_data_bctw.json`) и применяется MLM-фильтрация с подобранным порогом.
-4. Сравниваются результаты очистки MLM-фильтрацией с результатами, полученными с помощью специально обученных моделей (`fine-tuning`).
+4. Оцениваются результаты очистки MLM-фильтрацией.
 
 #### Ноутбук 5: `05_classification.ipynb`
 
-Этот ноутбук обучает модель **классификации интентов (Sequence Classification)**.
+Этот ноутбук обучает модель **классификации интентов (Sequence Classification)** для оценки качества классификации зашумленных и очищенных от шума интентов.
 
 **Действия:**
 1.  **Обучение на чистых данных:**
@@ -189,8 +190,8 @@ pip install -r requirements.txt
 
 **Модели для детекции фоновой речи (XLM-RoBERTa):**
 - [`evagogua/banking_credit_denoise_model`](https://huggingface.co/evagogua/banking_credit_denoise_model) — обучена на датасете `banking + credit_cards`.
-- [`evagogua/bctw_denoise_model`](https://huggingface.co/evagogua/bctw_denoise_model) — обучена на комбинированном датасете `banking + credit_cards + travel + work`.
 - [`evagogua/tw_bc_denoise_model`](https://huggingface.co/evagogua/tw_bc_denoise_model) — обучена на датасете `travel + work`, тестировалась на датасете `banking + credit_cards`
+- [`evagogua/bctw_denoise_model`](https://huggingface.co/evagogua/bctw_denoise_model) — обучена на комбинированном датасете `banking + credit_cards + travel + work`.
 - [`evagogua/all_denoise_model`](https://huggingface.co/evagogua/all_denoise_model) — обучена на полном наборе данных.
 
 **Модели для детекции фоновой речи (mBERT):**
