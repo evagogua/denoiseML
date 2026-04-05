@@ -103,7 +103,7 @@
 | Модель | Датасет | Token Accuracy | Macro F1 | Manual Test Macro F1 | 
 | :--- | :--- | :--- | :--- | :--- |
 | **XLM-R FT** | `banking+credit` | 97.35% | 97.33% | 72.62% | 
-| **XLM-R FT** | `tw` | 96.85% | 96.83% | 66.90% | 
+| **XLM-R FT** | `travel_work` | 96.85% | 96.83% | 66.90% | 
 | **XLM-R FT** | `bctw` | 97.49% | 97.48% | 76.10% | 
 | **XLM-R FT** | `all` | 97.52% | 97.52% | 60.01% | 
 | **mBERT FT** | `banking+credit` | 95.75% | 95.73% | 59.85% |
@@ -197,7 +197,7 @@ pip install -r requirements.txt
 
 **Модели для детекции фоновой речи (XLM-RoBERTa):**
 - [`evagogua/banking_credit_denoise_model`](https://huggingface.co/evagogua/banking_credit_denoise_model) — обучена на датасете `banking + credit_cards`.
-- [`evagogua/tw_bc_denoise_model`](https://huggingface.co/evagogua/travel_work_denoise_model) — обучена на датасете `travel + work`
+- [`evagogua/travel_work_denoise_model`](https://huggingface.co/evagogua/travel_work_denoise_model) — обучена на датасете `travel + work`
 - ⭐️ [`evagogua/bctw_denoise_model`](https://huggingface.co/evagogua/bctw_denoise_model) ⭐️ — обучена на комбинированном датасете `banking + credit_cards + travel + work`.
 - [`evagogua/all_denoise_model`](https://huggingface.co/evagogua/all_denoise_model) — обучена на полном наборе данных.
 
